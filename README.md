@@ -44,3 +44,69 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+Features:
+
+can use any npm module at the run time
+can create react component
+make api calls
+documentation + code side by side
+coding cheatsheet
+functionality to export the written code
+----------------------------------------
+
+3 big challenges:
+
+1. code will be provided to preview as a string. We have to execute it safely
+2. the code might have advanced JS syntax in it like jsx that that browser can't execute.
+3. The code might have import statements for other JS files or CSS. we have to deal with those import statements before executing the code
+-----------------------------------------
+
+Component Structure:
+
+codeCellComponent -> CodeEditor
+		  -> Preview 
+-----------------------------------------
+
+Solving problem2:
+
+Code transpilling in the browser
+a tool that take code, will strip out the feature that might not be widely supported in modern browser and convert into equivalent js code
+Will be using Babel as the transpilling
+codepen.io and babeljs.io is a similar application to ours
+
+Option1: react App --> userCode -> backend api server --> transpilled code -> react app(just like codepen.io)
+
+Option2: react app --> userCode -> In-Browser Transpiler -> Transpiled Result (just like babeljs.io)
+------------------------------------------
+
+Solving problem3:
+
+JS modules are the files that make some values available to other file and/or consumes values from other files
+Different Module Systems:
+- AMD e.g define(['dep'],(dep)=>{});
+- common js e.g require()  module.exports
+- ES Moduels e.g import a from 'a';   export default 243;
+Babel converts ES Module Syntax to Common js structure
+
+Will be using Bundler (webpack is one such example) a single file containign both modules linked together in some way
+BUNDLER: 
+1. read the content of the entry file -> 
+2. automatically found all the different require/import/export statements -> 3. automatically found all the modules on our hard drives (in our case it should automatically find all the modules the user has imported from NPM) -> 
+3. linked these files together into a single output file with all values being correctly communicated around
+
+We need to tweak step 3 according to our requirements
+
+Bundling Option-1:
+
+React App --> code -> Backend API Server (webpack runs--webpack finds missing module--npm install plugin gets module(npm registry)--Bundle complete!) --> bundled code --> react App
+The drawback is backend api will install tons of unnecessay modules based on user action as not all user will use the same modules.
+
+Bundling Option-2:
+Improved version of option-1, here we will not install heavy weight dependencies we will just use the src file of the module and the rest will remain the same
+
+Bundling Option-3:
+Here instead of calling the backend we will integrate the webpack process in the fronend application only.
+
+* As webpack doesn't work correctly on the browswer hence we can't use Babel + webpack. A good replace for them is ESBuild which can transpile as well as bundle our code in the browswer
