@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import * as esbuild from 'esbuild-wasm';
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 
 const App = () => {
     const [input, setInput] = useState('');
@@ -25,12 +26,15 @@ const App = () => {
             return;
         }
         // for transpiling the text
-        const result = await ref.current.transform(input, {
-            loader: 'jsx',
-            target: 'es2015'
-        });
+        const result = await ref.current.build({
+            entryPoints: ['index.js'],
+            bundle: true,
+            write: false,
+            plugins: [unpkgPathPlugin()]
+        })
+        // console.log(result)
         // saving the transpiled text into code
-        setCode(result?.code);
+        setCode(result?.outputFiles[0]?.text);
     }
     return (<div>
         <textarea value={input} onChange={e => setInput(e.target.value)}></textarea>
