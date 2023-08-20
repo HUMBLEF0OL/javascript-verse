@@ -58,7 +58,7 @@ functionality to export the written code
 
 3 big challenges:
 
-1. code will be provided to preview as a string. We have to execute it safely
+1. code will be provided to preview as a string. We have to execute it safely(need to tackles situations like prevention of malicious activity, infinite look etc----use iframe to solve this issue)
 2. the code might have advanced JS syntax in it like jsx that that browser can't execute.
 3. The code might have import statements for other JS files or CSS. we have to deal with those import statements before executing the code
 -----------------------------------------

@@ -43,11 +43,19 @@ const App = () => {
         // console.log(result)
         // saving the transpiled text into code
         setCode(result?.outputFiles[0]?.text);
+        try {
+            eval(result?.outputFiles[0]?.text);
+        } catch (err) {
+            // console.log(err)
+            alert(err)
+        }
+
     }
     return (<div>
         <textarea value={input} onChange={e => setInput(e.target.value)}></textarea>
         <div><button onClick={onClick}>Submit</button></div>
         <pre>{code}</pre>
+        <iframe src="/test.html"></iframe>
     </div>);
 }
 const root = ReactDOM.createRoot(
