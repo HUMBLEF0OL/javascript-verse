@@ -7,7 +7,6 @@ import { fetchPlugin } from './plugins/fetch-plugin';
 const App = () => {
     const [input, setInput] = useState('');
     const iframe = useRef<any>();
-    const [code, setCode] = useState('');
     const ref = useRef<any>();
 
     useEffect(() => {
@@ -27,6 +26,9 @@ const App = () => {
         if (!ref.current) {
             return;
         }
+        // resetting the iframe content before transpiling
+        iframe.current.srcdoc = html;
+
         // for transpiling the text
         const result = await ref.current.build({
             entryPoints: ['index.js'],
@@ -60,7 +62,13 @@ const App = () => {
         <script>
             /* setting up the event listeners so that we can listen to the parent */
             window.addEventListener('message', (event) =>{
-                eval(event.data);
+                try{
+                    eval(event.data);
+                } catch(err){
+                    const root = document.querySelector('#root');
+                    root.innerHTML = '<div style="color:red;"><h4>Runtime Error</h4> ' + err +'</div>';
+                    console.error(err);
+                }
             },false);
         </script
     </body>
@@ -69,8 +77,7 @@ const App = () => {
     return (<div>
         <textarea value={input} onChange={e => setInput(e.target.value)}></textarea>
         <div><button onClick={onClick}>Submit</button></div>
-        <pre>{code}</pre>
-        <iframe ref={iframe} srcDoc={html} sandbox='allow-scripts' />
+        <iframe title='preview' ref={iframe} srcDoc={html} sandbox='allow-scripts' />
     </div>);
 }
 const root = ReactDOM.createRoot(
