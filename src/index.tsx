@@ -6,6 +6,7 @@ import { fetchPlugin } from './plugins/fetch-plugin';
 
 const App = () => {
     const [input, setInput] = useState('');
+    const iframe = useRef<any>();
     const [code, setCode] = useState('');
     const ref = useRef<any>();
 
@@ -42,20 +43,34 @@ const App = () => {
         })
         // console.log(result)
         // saving the transpiled text into code
-        setCode(result?.outputFiles[0]?.text);
-        try {
-            eval(result?.outputFiles[0]?.text);
-        } catch (err) {
-            // console.log(err)
-            alert(err)
-        }
+        // setCode(result?.outputFiles[0]?.text);
+        iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
 
     }
+    const html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script>
+            /* setting up the event listeners so that we can listen to the parent */
+            window.addEventListener('message', (event) =>{
+                eval(event.data);
+            },false);
+        </script
+    </body>
+    </html>
+    `
     return (<div>
         <textarea value={input} onChange={e => setInput(e.target.value)}></textarea>
         <div><button onClick={onClick}>Submit</button></div>
         <pre>{code}</pre>
-        <iframe src="/test.html"></iframe>
+        <iframe ref={iframe} srcDoc={html} sandbox='allow-scripts' />
     </div>);
 }
 const root = ReactDOM.createRoot(
