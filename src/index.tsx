@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import * as esbuild from 'esbuild-wasm';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
+import CodeEditor from './components/code-editor';
 
 const App = () => {
     const [input, setInput] = useState('');
@@ -75,6 +76,7 @@ const App = () => {
     </html>
     `
     return (<div>
+        <CodeEditor initialValue='/* Happy Coding */' />
         <textarea value={input} onChange={e => setInput(e.target.value)}></textarea>
         <div><button onClick={onClick}>Submit</button></div>
         <iframe title='preview' ref={iframe} srcDoc={html} sandbox='allow-scripts' />
