@@ -1,4 +1,5 @@
-import MonacoEditor from "@monaco-editor/react";
+// EditorDidMount is the type definition not the actual function
+import MonacoEditor, { EditorDidMount } from "@monaco-editor/react";
 
 // https://blog.logrocket.com/build-web-editor-with-react-monaco-editor/#rewiring-react-app-work-with-monaco-editor
 // const options = {
@@ -25,10 +26,23 @@ import MonacoEditor from "@monaco-editor/react";
 
 interface CodeEditorProps {
     initialValue: string;
+    onChange(value: string): void;
 }
 
-const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue }) => {
-    return <MonacoEditor
+const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
+    const onEditorDidMount: EditorDidMount = (getValue, monacoEditor) => {
+        // adding event listener on the monacoEditor
+        monacoEditor.onDidChangeModelContent(() => {
+            onChange(getValue());
+            console.log(getValue())
+        });
+
+        // for altering the tabSze of the editor
+        monacoEditor.getModel()?.updateOptions({ tabSize: 2 });
+    }
+    return <
+        MonacoEditor
+        editorDidMount={onEditorDidMount}
         value={`${initialValue}\n`}
         height='60vh'
         theme='dark'
