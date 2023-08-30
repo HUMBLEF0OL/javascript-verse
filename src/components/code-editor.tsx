@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import MonacoEditor, { EditorDidMount } from '@monaco-editor/react';
 import prettier from 'prettier';
 import parser from 'prettier/parser-babel';
+import './code-editor.css';
 
 // https://blog.logrocket.com/build-web-editor-with-react-monaco-editor/#rewiring-react-app-work-with-monaco-editor
 // const options = {
@@ -56,15 +57,16 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
             useTabs: false,
             semi: true,
             singleQuote: true,
-        });
+        }).replace(/\/n$/, '');
+        // here replace is for removing the appended new line at the end of formatted code
 
         // set the formatted value back in the editor
         editorRef.current.setValue(formatted);
     };
 
     return (
-        <div>
-            <button onClick={onFormatClick}>Format</button>
+        <div className='editor-wrapper'>
+            <button onClick={onFormatClick} className='button button-format is-primary is-small'>Format</button>
             <MonacoEditor
                 editorDidMount={onEditorDidMount}
                 value={initialValue}
