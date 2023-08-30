@@ -4,6 +4,10 @@ import MonacoEditor, { EditorDidMount } from '@monaco-editor/react';
 import prettier from 'prettier';
 import parser from 'prettier/parser-babel';
 import './code-editor.css';
+import codeShift from 'jscodeshift';
+// we don't have a type definition file for this module hence we explicitly created the file
+import Highlighter from 'monaco-jsx-highlighter';
+import './syntax.css';
 
 // https://blog.logrocket.com/build-web-editor-with-react-monaco-editor/#rewiring-react-app-work-with-monaco-editor
 // const options = {
@@ -44,6 +48,20 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
         });
 
         monacoEditor.getModel()?.updateOptions({ tabSize: 2 });
+
+        // here we are setting up extra code for react component highlighting issue
+        const highlighter = new Highlighter(
+            // @ts-ignore
+            window.monaco,
+            codeShift,
+            monacoEditor
+        );
+        highlighter.highLightOnDidChangeModelContent(
+            () => { },
+            () => { },
+            undefined,
+            () => { }
+        );
     };
 
     const onFormatClick = () => {
