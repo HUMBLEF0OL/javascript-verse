@@ -90,7 +90,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
                 value={initialValue}
                 theme="dark"
                 language="javascript"
-                height="500px"
+                height="100%"
                 options={{
                     wordWrap: 'on',
                     cursorBlinking: "expand",
