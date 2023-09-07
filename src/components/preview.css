@@ -2,14 +2,14 @@
     position: relative;
     height: 100%;
     flex-grow: 1;
-  }
-  
-  .preview-wrapper iframe {
+}
+
+.preview-wrapper iframe {
     height: 100%;
     width: 100%;
-  }
-  
-  body .preview-wrapper:after {
+}
+
+.react-draggable-transparent-selection .preview-wrapper:after {
     content: '';
     position: absolute;
     top: 0;
@@ -17,5 +17,4 @@
     bottom: 0;
     left: 0;
     opacity: 0;
-  }
-  
+}
