@@ -1,12 +1,25 @@
 .add-cell {
     position: relative;
+    margin-top: 12.5px;
+    margin-bottom: 5px;
 }
 
 .add-cell .divider {
     position: absolute;
     top: 10%;
     bottom: 50%;
+    right: 5%;
+    left: 5%;
     border-bottom: 1px solid gray;
-    width: 100%;
+    width: 90%;
     z-index: -1;
+}
+
+.add-cell .add-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.add-cell .add-buttons button {
+    margin: 0 20px;
 }
