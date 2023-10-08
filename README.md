@@ -112,3 +112,9 @@ Here instead of calling the backend we will integrate the webpack process in the
 * As webpack doesn't work correctly on the browswer hence we can't use Babel + webpack. A good replace for them is ESBuild which can transpile as well as bundle our code in the browswer
 
 We have used postMessage thing to so that iframe can get what code has been transplied by adding event listerener instead of directly appending the transpiled code. So instead of state that we were mainting for priting it on the screen we will use ref
+
+------------------------------------------------------
+
+## One of the important feature
+
+Allow all code cells to have access to all the code written above in the prior code cells
