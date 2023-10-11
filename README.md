@@ -118,3 +118,5 @@ We have used postMessage thing to so that iframe can get what code has been tran
 ## One of the important feature
 
 Allow all code cells to have access to all the code written above in the prior code cells
+
+## Package the project into a npm module and publish it so that other user can use it
