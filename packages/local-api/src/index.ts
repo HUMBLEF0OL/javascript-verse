@@ -1,4 +1,9 @@
+import express from 'express';
+
 export const serve = (port: number, filename: string, dir: string) => {
-    console.log('serving traffic on port', port);
-    console.log(filename, dir)
-}
+    const app = express();
+
+    return new Promise<void>((resolve, reject) => {
+        app.listen(port, resolve).on('error', reject);
+    });
+};
