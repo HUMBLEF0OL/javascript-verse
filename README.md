@@ -1,122 +1,85 @@
-# Getting Started with Create React App
+# JavaScript-Verse Documentation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+JavaScript-Verse is a versatile web application that provides a code execution environment within the browser along with a markdown editor. It allows you to write and execute JavaScript and React code, make API calls, view documentation alongside your code, access coding cheatsheets, and export your written code. This documentation will provide an in-depth understanding of JavaScript-Verse's features, challenges, component structure, and solutions to specific problems.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+JavaScript-Verse offers several powerful features:
 
-### `npm start`
+1. **Code Execution Environment**: JavaScript-Verse enables you to write, execute, and preview JavaScript and React code within the browser.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. **Support for NPM Modules**: You can use any NPM module at runtime, expanding your coding capabilities with third-party libraries.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. **React Component Creation**: JavaScript-Verse allows you to create and render React components, making it a valuable tool for React development.
 
-### `npm test`
+4. **API Calls**: You can make API calls directly from your code, facilitating data retrieval and integration in your projects.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5. **Documentation and Code Side-by-Side**: JavaScript-Verse provides a side-by-side view of code and documentation, making it easier to understand and reference your code as you work.
 
-### `npm run build`
+6. **Coding Cheatsheet**: The application includes a coding cheatsheet for quick reference and guidance on syntax and coding practices.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+7. **Export Functionality**: You can export the code you've written, making it easy to save and share your work.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Challenges
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+While building JavaScript-Verse, I encountered several challenges:
 
-### `npm run eject`
+### Challenge 1: Safe Code Execution
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Code is provided as a string and needs to be executed safely. This includes preventing malicious activities and handling situations like infinite loops. I address this challenge by using iframes to isolate code execution securely.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Challenge 2: Advanced JS Syntax
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Some code may contain advanced JavaScript syntax, such as JSX, that modern browsers cannot execute directly. To overcome this, I implement code transpilation in the browser using Babel, similar to codepen.io and babeljs.io.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Challenge 3: Handling Import Statements
 
-## Learn More
+Code might contain import statements for other JavaScript files or CSS. I need to manage these import statements before executing the code. To solve this, I use a bundler, like webpack, to bundle the code and its dependencies.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Component Structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+JavaScript-Verse is structured around two main components:
 
+- **Code Cell Component**: This component houses the code editing and execution functionality.
+  - **Code Editor**: Where you write and edit your code.
+  - **Preview**: Where you can see the execution results and the output of your code.
 
-Features:
+## Solutions
 
-can use any npm module at the run time
-can create react component
-make api calls
-documentation + code side by side
-coding cheatsheet
-functionality to export the written code
-----------------------------------------
+### Solving Problem 2: Code Transpilation
 
-3 big challenges:
+To transpile code with advanced syntax, I use Babel as the transpiler. I provide two options for code transpilation:
 
-1. code will be provided to preview as a string. We have to execute it safely(need to tackles situations like prevention of malicious activity, infinite look etc----use iframe to solve this issue)
-2. the code might have advanced JS syntax in it like jsx that that browser can't execute.
-3. The code might have import statements for other JS files or CSS. we have to deal with those import statements before executing the code
------------------------------------------
+**Option 1: Backend API Server**
+- React App -> User Code -> Backend API Server -> Transpiled Code -> React App
+- This option involves sending user code to a backend API server, which transpiles the code and returns it to the React App. It's similar to codepen.io.
 
-Component Structure:
+**Option 2: In-Browser Transpiler**
+- React App -> User Code -> In-Browser Transpiler -> Transpiled Result
+- This option performs code transpilation directly within the browser, similar to babeljs.io. It avoids the need for a backend server.
 
-codeCellComponent -> CodeEditor
-		  -> Preview 
------------------------------------------
+### Solving Problem 3: Handling Import Statements
 
-Solving problem2:
+To manage import statements and bundle code and its dependencies, I use a bundler. I offer three bundling options:
 
-Code transpilling in the browser
-a tool that take code, will strip out the feature that might not be widely supported in modern browser and convert into equivalent js code
-Will be using Babel as the transpilling
-codepen.io and babeljs.io is a similar application to ours
+**Bundling Option 1: Backend Bundler**
+- React App -> User Code -> Backend API Server (Webpack runs) -> Bundled Code -> React App
+- The backend bundler installs necessary modules based on user actions, but it may include unnecessary modules for some users.
 
-Option1: react App --> userCode -> backend api server --> transpilled code -> react app(just like codepen.io)
+**Bundling Option 2: Improved Backend Bundler**
+- An improved version of option 1, where heavy dependencies are not installed. Instead, the source files of the modules are used, ensuring a more efficient bundling process.
 
-Option2: react app --> userCode -> In-Browser Transpiler -> Transpiled Result (just like babeljs.io)
-------------------------------------------
+**Bundling Option 3: Frontend Bundler (ESBuild)**
+- In this option, I integrate the bundling process into the frontend application. I use ESBuild, which can transpile and bundle code directly in the browser.
 
-Solving problem3:
+I use postMessage to allow the iframe to retrieve transpiled code, and I utilize event listeners to communicate with the iframe, avoiding the need for state management.
 
-JS modules are the files that make some values available to other file and/or consumes values from other files
-Different Module Systems:
-- AMD e.g define(['dep'],(dep)=>{});
-- common js e.g require()  module.exports
-- ES Moduels e.g import a from 'a';   export default 243;
-Babel converts ES Module Syntax to Common js structure
+## Important Feature: Code Cell Access
 
-Will be using Bundler (webpack is one such example) a single file containign both modules linked together in some way
-BUNDLER: 
-1. read the content of the entry file -> 
-2. automatically found all the different require/import/export statements -> 3. automatically found all the modules on our hard drives (in our case it should automatically find all the modules the user has imported from NPM) -> 
-3. linked these files together into a single output file with all values being correctly communicated around
+JavaScript-Verse allows all code cells to have access to the code written in prior code cells. This feature enhances code modularity and reusability within the application.
 
-We need to tweak step 3 according to our requirements
+## Packaging and Sharing
 
-Bundling Option-1:
+The long-term goal is to package the JavaScript-Verse project into an NPM module and publish it. This will enable other users to easily integrate and use The application in their projects, promoting code collaboration and sharing.
 
-React App --> code -> Backend API Server (webpack runs--webpack finds missing module--npm install plugin gets module(npm registry)--Bundle complete!) --> bundled code --> react App
-The drawback is backend api will install tons of unnecessay modules based on user action as not all user will use the same modules.
-
-Bundling Option-2:
-Improved version of option-1, here we will not install heavy weight dependencies we will just use the src file of the module and the rest will remain the same
-
-Bundling Option-3:
-Here instead of calling the backend we will integrate the webpack process in the fronend application only.
-
-* As webpack doesn't work correctly on the browswer hence we can't use Babel + webpack. A good replace for them is ESBuild which can transpile as well as bundle our code in the browswer
-
-We have used postMessage thing to so that iframe can get what code has been transplied by adding event listerener instead of directly appending the transpiled code. So instead of state that we were mainting for priting it on the screen we will use ref
-
-------------------------------------------------------
-
-## One of the important feature
-
-Allow all code cells to have access to all the code written above in the prior code cells
-
-## Package the project into a npm module and publish it so that other user can use it
+JavaScript-Verse is a powerful and user-friendly tool for web developers, offering a secure and versatile coding environment with an array of features to enhance your coding experience. I hope you find it valuable for your web development projects.
