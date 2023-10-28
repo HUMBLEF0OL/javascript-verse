@@ -1,6 +1,6 @@
 # JavaScript-Verse Documentation
 
-JavaScript-Verse is a versatile web application that provides a code execution environment within the browser along with a markdown editor. It allows you to write and execute JavaScript and React code, make API calls, view documentation alongside your code, access coding cheatsheets, and export your written code. This documentation will provide an in-depth understanding of JavaScript-Verse's features, challenges, component structure, and solutions to specific problems.
+JavaScript-Verse is a versatile web application that provides a code execution environment within the browser along with a markdown editor. It allows you to write and execute JavaScript and React code, make API calls, view documentation alongside your code, access coding cheatsheets, and export your written code. This documentation will provide an in-depth understanding of JavaScript-Verse's features, challenges, component structure, and solutions to specific problems. The application can be explored on this [Link](https://humblef0ol.github.io/javascript-verse/)
 
 ## Features
 
