@@ -1,0 +1,2 @@
+(this["webpackJsonpjavascript-verse"]=this["webpackJsonpjavascript-verse"]||[]).push([[143],{325:function(a,e){Prism.languages.false={comment:{pattern:/\{[^}]*\}/},string:{pattern:/"[^"]*"/,greedy:!0},"character-code":{pattern:/'(?:[^\r]|\r\n?)/,alias:"number"},"assembler-code":{pattern:/\d+`/,alias:"important"},number:/\d+/,operator:/[-!#$%&'*+,./:;=>?@\\^_`|~\xdf\xf8]/,punctuation:/\[|\]/,variable:/[a-z]/,"non-standard":{pattern:/[()<BDO\xae]/,alias:"bold"}}}}]);
+//# sourceMappingURL=143.27894c69.chunk.js.map

@@ -1,0 +1,2 @@
+(this["webpackJsonpjavascript-verse"]=this["webpackJsonpjavascript-verse"]||[]).push([[188],{370:function(a,e){Prism.languages.hsts={directive:{pattern:/\b(?:max-age=|includeSubDomains|preload)/,alias:"keyword"},safe:{pattern:/\b\d{8,}\b/,alias:"selector"},unsafe:{pattern:/\b\d{1,7}\b/,alias:"function"}}}}]);
+//# sourceMappingURL=188.28dd6f6f.chunk.js.map
