@@ -1,7 +1,10 @@
 {
   "name": "javascript-verse",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "author": {
+    "name": "HUMBLEF0OL"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@monaco-editor/react": "3.7.5",
